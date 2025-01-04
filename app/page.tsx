@@ -1,7 +1,9 @@
 // app/page.tsx
+// import './globals.css';
 import React from 'react';
 import Hero from './components/Hero'; // Import the Hero component
 import PostCard from './components/PostCard'; // Import the PostCard component
+import Card from './components/Card'; // Import the Card component
 import { client } from '../sanity/lib/client'; // Sanity client import
 
 // Fetch data from Sanity directly in the component
@@ -22,7 +24,9 @@ export default async function HomePage() {
         <h2 className="text-3xl font-semibold mb-6">Recent Posts</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((post: any) => (
-            <PostCard key={post._id} post={post} /> // Use the PostCard component
+            <Card key={post._id} title={post.title} content={<PostCard post={post} />}>
+              {/* You can add additional content here if needed */}
+            </Card>
           ))}
         </div>
       </section>

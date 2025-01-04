@@ -1,3 +1,4 @@
+//app/components/PostCard.tsx
 "use client";
 import React from 'react';
 import { urlFor } from '../../sanity/lib/image'; // Import the urlFor function to generate image URLs

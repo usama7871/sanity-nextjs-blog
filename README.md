@@ -8,8 +8,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 my-app/
 ├── app/
 │   ├── authors/
-│   │   └── page.tsx
+│   │   |──[slug]
+|   |   |    └──page.tsx
 │   ├── categories/
+│   │   |──[slug]
+|   |   |    └──page.tsx
 │   │   └── page.tsx
 │   ├── globals.css
 │   ├── layout.tsx

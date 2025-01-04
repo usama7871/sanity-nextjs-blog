@@ -1,18 +1,29 @@
+//app/components/Navbar.tsx
 import React from 'react';
 import Link from 'next/link'; // Import Link for client-side navigation
+import { FaHome, FaTag, FaUser } from 'react-icons/fa'; // Icons for each link
 
 // Navbar component for site navigation
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-md py-4">
-      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
-        <div className="text-2xl font-bold text-indigo-600">
+    <nav className="bg-gradient-to-r from-indigo-600 to-indigo-800 text-white shadow-md py-4">
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        {/* Brand Name */}
+        <div className="text-3xl font-extrabold text-white tracking-wide">
           <Link href="/">My Blog</Link>
         </div>
-        <div className="space-x-6">
-          <Link href="/" className="hover:text-indigo-500 transition duration-300">Home</Link>
-          <Link href="/categories" className="hover:text-indigo-500 transition duration-300">Categories</Link>
-          <Link href="/authors" className="hover:text-indigo-500 transition duration-300">Authors</Link>
+        
+        {/* Navigation Links */}
+        <div className="space-x-8 flex items-center">
+          <Link href="/" className="flex items-center hover:text-indigo-200 transition duration-300">
+            <FaHome className="mr-2" /> Home
+          </Link>
+          <Link href="/categories" className="flex items-center hover:text-indigo-200 transition duration-300">
+            <FaTag className="mr-2" /> Categories
+          </Link>
+          <Link href="/authors" className="flex items-center hover:text-indigo-200 transition duration-300">
+            <FaUser className="mr-2" /> Authors
+          </Link>
         </div>
       </div>
     </nav>

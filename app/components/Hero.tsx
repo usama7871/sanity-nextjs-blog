@@ -1,3 +1,4 @@
+//app/components/Hero.tsx
 import React from 'react';
 
 // Hero component for the homepage

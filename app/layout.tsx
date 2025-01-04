@@ -1,6 +1,8 @@
+//app/layout.tsx
 import React from 'react';
 import Navbar from './components/Navbar'; // Import the Navbar component
 import Footer from './components/Footer'; // Import the Footer component
+import './globals.css'; // Ensure this line is present
 
 type LayoutProps = {
   children: React.ReactNode;
