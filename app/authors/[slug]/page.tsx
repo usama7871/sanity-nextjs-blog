@@ -2,6 +2,7 @@ import React from 'react';
 import { client } from '../../../sanity/lib/client'; // Import the Sanity client for fetching data
 import { urlFor } from '../../../sanity/lib/image'; // Import the urlFor function to generate image URLs
 import { PortableText } from '@portabletext/react'; // Import PortableText for rendering block content
+import Card from '../../components/Card'; // Import the Card component
 
 // Define the Author type to match the structure of the author document in Sanity
 type Author = {
@@ -31,20 +32,23 @@ export default async function AuthorPage({ params }: { params: { slug: string } 
 
   // Handle the case where the author is not found
   if (!author) {
-    return <div>Author not found</div>;
+    return <div className="container mx-auto text-center">Author not found</div>;
   }
 
   return (
-    <div className="container mx-auto">
-      <h1 className="text-3xl font-bold mb-4">{author.name}</h1>
-      {author.image && (
-        <img
-          src={urlFor(author.image).url()} // Generate the image URL using urlFor
-          alt={author.name} // Alt text for the image
-          className="w-full h-48 object-cover mb-4"
-        />
-      )}
-      <PortableText value={author.bio} /> {/* Render the author's bio using PortableText */}
+    <div className="container mx-auto p-6">
+      <Card title={author.name} content={
+        <>
+          {author.image && (
+            <img
+              src={urlFor(author.image).url()} // Generate the image URL using urlFor
+              alt={author.name} // Alt text for the image
+              className="w-full h-48 object-cover mb-4 rounded-lg"
+            />
+          )}
+          <PortableText value={author.bio} /> {/* Render the author's bio using PortableText */}
+        </>
+      } />
     </div>
   );
 } 

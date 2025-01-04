@@ -2,6 +2,7 @@
 import React from 'react';
 import { client } from '../../sanity/lib/client'; // Import the Sanity client for fetching data
 import Link from 'next/link'; // Import Link for client-side navigation
+import Card from '../components/Card'; // Import the Card component
 
 // Define the Category type to match the structure of the category document in Sanity
 type Category = {
@@ -9,7 +10,7 @@ type Category = {
   title: string; // Title of the category
   slug: {
     current: string; // Slug for the category's URL
-  };
+  };  
 };
 
 // Fetch the category data
@@ -24,17 +25,17 @@ export default async function CategoriesPage() {
   const categories = await fetchCategories(); // Fetch the categories
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-4">Categories</h1>
-      <ul className="space-y-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((category) => (
-          <li key={category._id}>
+          <Card key={category._id} title={category.title} content={
             <Link href={`/categories/${category.slug.current}`} className="text-blue-500 hover:underline">
-              {category.title} {/* Link to the individual category */}
+              View Posts
             </Link>
-          </li>
+          } />
         ))}
-      </ul>
+      </div>
     </div>
   );
 } 

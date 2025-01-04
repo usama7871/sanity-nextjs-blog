@@ -1,6 +1,7 @@
 import React from 'react';
 import { client } from '../../../sanity/lib/client'; // Import the Sanity client for fetching data
 import Link from 'next/link'; // Import Link for client-side navigation
+import Card from '../../components/Card'; // Import the Card component
 
 // Define the Category type to match the structure of the category document in Sanity
 type Category = {
@@ -31,27 +32,30 @@ export default async function CategoryPage({ params }: { params: { slug: string 
 
   // Handle the case where the category is not found
   if (!category) {
-    return <div>Category not found</div>;
+    return <div className="container mx-auto text-center">Category not found</div>;
   }
 
   return (
-    <div className="container mx-auto">
-      <h1 className="text-3xl font-bold mb-4">{category.title}</h1>
-      <p>{category.description}</p>
-      <h2 className="text-2xl mt-4">Posts in this Category:</h2>
-      <ul className="space-y-2">
-        {category.posts && category.posts.length > 0 ? ( // Check if posts exist and have length
-          category.posts.map((post) => (
-            <li key={post.slug.current}>
-              <Link href={`/post/${post.slug.current}`} className="text-blue-500 hover:underline">
-                {post.title} {/* Link to the individual post */}
-              </Link>
-            </li>
-          ))
-        ) : (
-          <li>No posts available in this category.</li> // Handle case where there are no posts
-        )}
-      </ul>
+    <div className="container mx-auto p-6">
+      <Card title={category.title} content={
+        <>
+          <p className="mb-4">{category.description}</p>
+          <h2 className="text-2xl mt-4">Posts in this Category:</h2>
+          <ul className="space-y-2">
+            {category.posts && category.posts.length > 0 ? (
+              category.posts.map((post) => (
+                <li key={post.slug.current}>
+                  <Link href={`/post/${post.slug.current}`} className="text-blue-500 hover:underline">
+                    {post.title} {/* Link to the individual post */}
+                  </Link>
+                </li>
+              ))
+            ) : (
+              <li>No posts available in this category.</li> // Handle case where there are no posts
+            )}
+          </ul>
+        </>
+      } />
     </div>
   );
 } 
