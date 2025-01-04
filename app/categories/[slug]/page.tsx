@@ -2,6 +2,7 @@ import React from 'react';
 import { client } from '../../../sanity/lib/client'; // Import the Sanity client for fetching data
 import Link from 'next/link'; // Import Link for client-side navigation
 import Card from '../../components/Card'; // Import the Card component
+import Image from 'next/image'; // Import the Image component
 
 // Define the Category type to match the structure of the category document in Sanity
 type Category = {
@@ -28,7 +29,8 @@ async function fetchCategory(slug: string): Promise<Category | null> {
 
 // CategoryPage component to display the category's details and its posts
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
-  const category = await fetchCategory(params.slug); // Fetch the category based on the slug
+  const { slug } = await params; // Await params
+  const category = await fetchCategory(slug); // Fetch the category based on the slug
 
   // Handle the case where the category is not found
   if (!category) {

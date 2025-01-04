@@ -3,6 +3,7 @@ import { client } from '../../../sanity/lib/client'; // Import the Sanity client
 import { urlFor } from '../../../sanity/lib/image'; // Import the urlFor function to generate image URLs
 import { PortableText } from '@portabletext/react'; // Import PortableText for rendering block content
 import Card from '../../components/Card'; // Import the Card component
+import Image from 'next/image'; // Import the Image component
 
 // Define the Author type to match the structure of the author document in Sanity
 type Author = {
@@ -16,7 +17,14 @@ type Author = {
       _id: string; // Image asset ID
     };
   };
-  bio: any[]; // Bio of the author, stored as Portable Text
+  bio: Array<{
+    _type: string; // Type of the block (e.g., 'block', 'image', etc.)
+    children: Array<{
+      _key: string; // Unique key for the child
+      _type: string; // Type of the child (e.g., 'span')
+      text: string; // Text content
+    }>;
+  }>; // Bio of the author, stored as Portable Text
 };
 
 // Fetch the author data based on the slug
@@ -28,7 +36,8 @@ async function fetchAuthor(slug: string): Promise<Author | null> {
 
 // AuthorPage component to display the author's details
 export default async function AuthorPage({ params }: { params: { slug: string } }) {
-  const author = await fetchAuthor(params.slug); // Fetch the author based on the slug
+  const { slug } = await params; // Await params
+  const author = await fetchAuthor(slug); // Fetch the author based on the slug
 
   // Handle the case where the author is not found
   if (!author) {
@@ -40,9 +49,11 @@ export default async function AuthorPage({ params }: { params: { slug: string } 
       <Card title={author.name} content={
         <>
           {author.image && (
-            <img
+            <Image
               src={urlFor(author.image).url()} // Generate the image URL using urlFor
               alt={author.name} // Alt text for the image
+              width={500} // Set the width
+              height={300} // Set the height
               className="w-full h-48 object-cover mb-4 rounded-lg"
             />
           )}

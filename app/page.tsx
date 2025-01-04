@@ -6,10 +6,27 @@ import PostCard from './components/PostCard'; // Import the PostCard component
 import Card from './components/Card'; // Import the Card component
 import { client } from '../sanity/lib/client'; // Sanity client import
 
+type Post = {
+  _id: string; // Unique identifier for the post
+  title: string; // Title of the post
+  slug: {
+    current: string; // Slug for the post's URL
+  };
+  publishedAt: string; // Date the post was published
+  author: {
+    name: string; // Name of the author
+  };
+  mainImage: {
+    asset: {
+      _id: string; // Image asset ID
+    };
+  };
+};
+
 // Fetch data from Sanity directly in the component
-async function fetchPosts() {
+async function fetchPosts(): Promise<Post[]> {
   const query = `*[_type == "post"]{_id, title, slug, publishedAt, author->{name}, mainImage} | order(publishedAt desc)`;
-  const posts = await client.fetch(query);
+  const posts: Post[] = await client.fetch(query);
   return posts;
 }
 
